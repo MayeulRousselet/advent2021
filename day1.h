@@ -6,13 +6,13 @@
 namespace day1_part1 {
 
 template<size_t First, size_t Second, size_t...Rest>
-struct DepthMeasurement {
+struct Depth {
     static constexpr const size_t numberOfTimes =
-            (Second > First ? 1 : 0) + DepthMeasurement<Second, Rest...>::numberOfTimes;
+            (Second > First ? 1 : 0) + Depth<Second, Rest...>::numberOfTimes;
 };
 
 template<size_t First, size_t Second>
-struct DepthMeasurement<First, Second> {
+struct Depth<First, Second> {
     static constexpr const size_t numberOfTimes = (Second > First ? 1 : 0);
 };
 
@@ -23,15 +23,15 @@ void play();
 namespace day1_part2 {
 
 template<size_t First, size_t Second, size_t Third, size_t Fourth, size_t...Rest>
-struct DepthMeasurementWithWindow {
+struct DepthWithWindow {
     static constexpr const size_t firstWindow = First + Second + Third;
     static constexpr const size_t secondWindow = Second + Third + Fourth;
     static constexpr const size_t numberOfTimes = (secondWindow > firstWindow ? 1 : 0) +
-                                                  DepthMeasurementWithWindow<Second, Third, Fourth, Rest...>::numberOfTimes;
+                                                  DepthWithWindow<Second, Third, Fourth, Rest...>::numberOfTimes;
 };
 
 template<size_t First, size_t Second, size_t Third, size_t Fourth>
-struct DepthMeasurementWithWindow<First, Second, Third, Fourth> {
+struct DepthWithWindow<First, Second, Third, Fourth> {
     static constexpr const size_t firstWindow = First + Second + Third;
     static constexpr const size_t secondWindow = Second + Third + Fourth;
     static constexpr const size_t numberOfTimes = (secondWindow > firstWindow ? 1 : 0);

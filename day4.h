@@ -18,6 +18,11 @@ template <size_t Value, typename S>
 struct IsPresent{
 };
 
+template <size_t Value>
+struct IsPresent<Value, Set<>>{
+    static constexpr const bool value = false;
+};
+
 template <size_t Value, size_t...Values>
 struct IsPresent<Value, Set<Values...>>{
 };
@@ -45,12 +50,35 @@ struct Add<Value, Set<Values...>>{
             >;
 };
 
+template <typename R, typename A, typename B>
+struct IntersectionImpl {
+};
+
+template <size_t... R, size_t Head, size_t ...Rest,size_t ...B>
+struct IntersectionImpl<Set<R...>, Set<Head, Rest...>,Set<B...>> {
+    using Result = conditional_t<
+            IsPresent<Head, Set<Rest...>>::value,
+            typename Add<Head, Set<R...>>::Result ,
+            Set<R...>
+            >;
+};
+
+template <typename A, typename B>
+struct Intersection {
+};
+
+template <size_t ...A,size_t ...B>
+struct Intersection<Set<A...>,Set<B...>> {
+    using Result = typename IntersectionImpl<Set<>, Set<A...>, Set<B...>>::Result;
+};
+
 template <typename S, typename Drawn>
 struct Row {
 };
 
 template <size_t ...Values,size_t... Drawn>
 struct Row<Set<Values...>, Set<Drawn...>> {
+    static constexpr const bool complete = Set<Values...>::N == Set<Drawn...>::N;
 };
 
 template <size_t Value, typename R>

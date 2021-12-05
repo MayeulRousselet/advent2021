@@ -8,4 +8,4 @@ project(
 SET(CMAKE_CXX_FLAGS "-ftemplate-depth=2048")
 set (CMAKE_CXX_STANDARD 17)
 
-add_executable(advent main.cpp day1.cpp day2.cpp)
+add_executable(advent main.cpp day1.cpp day2.cpp day3.cpp)

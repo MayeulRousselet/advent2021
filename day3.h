@@ -73,63 +73,6 @@ template <size_t N, size_t ...Numbers>
 struct PowerConsumption {
     static constexpr const size_t value = GammaRate<0, N, Numbers...>::value * EpsilonRate<0, N, Numbers...>::value;
 };
-/*
-template <bool...Bits>
-struct Binary {
-};
-
-template <size_t I, size_t At, bool...Rest>
-struct BoolAtImpl {
-};
-
-template <size_t I, size_t At, bool Current>
-struct BoolAtImpl<I, At, Current> {
-    static constexpr const bool value = I == At ? Current : false;
-};
-
-template <size_t I, size_t At, bool Current, bool...Rest>
-struct BoolAtImpl<I, At, Current, Rest...> {
-    static constexpr const bool value = I == At ? Current : BoolAtImpl<I + 1, At, Rest...>::value;
-};
-
-template <size_t At, bool...Bits>
-struct BoolAt {
-    static_assert(At < sizeof...(Bits));
-    static constexpr const bool value = BoolAtImpl<0, At, Bits...>::value;
-};
-
-template <size_t At, bool...Bits>
-struct BitAt {
-    static constexpr const size_t value = BoolAt<At, Bits...>::value ? 1 : 0;
-};
-
-template <size_t I, bool ...Bits>
-struct ToUIntImpl {
-    static constexpr const size_t value = BitAt<I, Bits...>::value * Pow<2, I>::value + ToUIntImpl<I - 1, Bits...>::value;
-};
-
-template <bool ...Bits>
-struct ToUIntImpl<0, Bits...> {
-    static constexpr const size_t value = BitAt<0, Bits...>::value;
-};
-
-template <bool ...Bits>
-struct ToUInt {
-    static constexpr const size_t value = ToUIntImpl<sizeof...(Bits) - 1 , Bits...>::value;
-};
-
-template <size_t I, typename ...Bools>
-struct MostCommonBit {
-};
-
-template <size_t I, typename Head, typename ...Rest>
-struct MostCommonBit<I, Head, Rest...> {
-    static constexpr const size_t nb_zero = (BoolAt<I>::value ? 0 : 1 ) + MostCommonBit<I, Rest...>::nb_zero;
-    static constexpr const size_t nb_one = (BoolAt<I>::value ? 1 : 0 ) + MostCommonBit<I, Rest...>::nb_one;
-};
-*/
-
-
 
 void play();
 
